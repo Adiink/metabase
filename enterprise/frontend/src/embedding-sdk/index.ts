@@ -1,24 +1,56 @@
+import { defineGlobalReact } from "embedding-sdk/sdk-wrapper/lib/private/define-global-react";
 import { EMBEDDING_SDK_CONFIG } from "metabase/embedding-sdk/config";
 
 // Enable SDK mode as we are in the SDK bundle
 // This applies to SDK derivatives such as new iframe embedding.
 EMBEDDING_SDK_CONFIG.isEmbeddingSdk = true;
 
-// Mantine styles need to be imported before any of our components so that our styles win over
-// the default mantine styles
-import "@mantine/core/styles.css";
-import "@mantine/dates/styles.css";
+defineGlobalReact();
 
-import "metabase/lib/dayjs";
+export * from "embedding-sdk/sdk-wrapper/components/public";
+export * from "embedding-sdk/sdk-wrapper/hooks/public";
+export * from "embedding-sdk/sdk-wrapper/lib/public";
 
-// Import the EE plugins required by the embedding sdk.
-import "sdk-ee-plugins";
-
-// Imports which are only applicable to the embedding sdk, and not the new iframe embedding.
-import "sdk-specific-imports";
-
-export * from "./hooks/public";
-export * from "./components/public";
+export {
+  type CollectionBrowserProps,
+  type CollectionBrowserListColumns,
+} from "./components/public/CollectionBrowser";
+export {
+  type CreateDashboardModalProps,
+  type CreateDashboardValues,
+} from "./components/public/CreateDashboardModal";
+export { type CreateQuestionProps } from "./components/public/CreateQuestion";
+export type {
+  StaticDashboardProps,
+  InteractiveDashboardProps,
+  EditableDashboardProps,
+} from "./components/public/dashboard";
+export {
+  type InteractiveQuestionComponents,
+  type BaseInteractiveQuestionProps,
+  type InteractiveQuestionProps,
+  type InteractiveQuestionBackButtonProps,
+  type InteractiveQuestionBreakoutDropdownProps,
+  type InteractiveQuestionChartTypeDropdownProps,
+  type InteractiveQuestionChartTypeSelectorProps,
+  type InteractiveQuestionDownloadWidgetProps,
+  type InteractiveQuestionDownloadWidgetDropdownProps,
+  type InteractiveQuestionEditorProps,
+  type InteractiveQuestionEditorButtonProps,
+  type InteractiveQuestionFilterProps,
+  type InteractiveQuestionFilterDropdownProps,
+  type InteractiveQuestionQuestionSettingsProps,
+  type InteractiveQuestionQuestionSettingsDropdownProps,
+  type InteractiveQuestionQuestionVisualizationProps,
+  type InteractiveQuestionResetButtonProps,
+  type InteractiveQuestionSaveButtonProps,
+  type InteractiveQuestionSaveQuestionFormProps,
+  type InteractiveQuestionSummarizeDropdownProps,
+  type InteractiveQuestionTitleProps,
+  type DrillThroughQuestionProps,
+} from "./components/public/InteractiveQuestion";
+export { type MetabaseProviderProps } from "./components/public/MetabaseProvider";
+export { type StaticQuestionProps } from "./components/public/StaticQuestion";
 
 export type {
   CustomDashboardCardMenuItem,
