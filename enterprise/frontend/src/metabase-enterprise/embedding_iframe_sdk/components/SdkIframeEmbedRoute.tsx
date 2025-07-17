@@ -3,8 +3,8 @@ import { P, match } from "ts-pattern";
 
 import {
   InteractiveDashboard,
-  InteractiveQuestion,
   MetabaseProvider,
+  SdkQuestion,
   StaticDashboard,
   StaticQuestion,
 } from "embedding-sdk/bundle";
@@ -83,7 +83,7 @@ const SdkIframeEmbedView = ({
 
   return match(settings)
     .with({ template: "exploration" }, (settings) => (
-      <InteractiveQuestion
+      <SdkQuestion
         questionId="new"
         height="100%"
         isSaveEnabled={settings.isSaveEnabled ?? false}
@@ -148,7 +148,7 @@ const SdkIframeEmbedView = ({
         isDrillThroughEnabled: P.optional(true),
       },
       (settings) => (
-        <InteractiveQuestion
+        <SdkQuestion
           questionId={settings.questionId}
           withDownloads={settings.withDownloads}
           height="100%"
