@@ -2,7 +2,15 @@
   (:require
    [clojure.string :as str]
    [clojure.test :refer :all]
-   [metabase.test.http-client :as client]))
+   [metabase.test.http-client :as client])
+  (:import (java.io InputStream)))
+
+(defn slurp-body [resp]
+  (let [b (:body resp)]
+    (cond
+      (string? b) b
+      (instance? InputStream b) (slurp b)
+      :else b)))
 
 (deftest test-public-routes
   (binding [client/*url-prefix* ""]
