@@ -1,7 +1,9 @@
+import { Placeholder } from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import type React from "react";
 import { useEffect } from "react";
+import { t } from "ttag";
 
 import { Box } from "metabase/ui";
 
@@ -32,6 +34,9 @@ export const Editor: React.FC<EditorProps> = ({
         },
       }),
       MarkdownSerializer,
+      Placeholder.configure({
+        placeholder: t`Start typing your report. Type "@" to insert a question.`,
+      }),
     ],
     content: "",
     autofocus: true,
