@@ -80,17 +80,19 @@
 (defmethod search.engine/update! :search.engine/semantic
   [_ document-reducible]
   (try
+    (log/info "Updating semantic search engine")
     (update-index! document-reducible)
     (catch Exception e
-      (log/error e "Error updating semantic search index")
+      (log/error e "Error updating semantic search engine")
       {})))
 
 (defmethod search.engine/delete! :search.engine/semantic
   [_ model ids]
   (try
+    (log/info "Deleting from semantic search engine")
     (delete-from-index! model ids)
     (catch Exception e
-      (log/error e "Error deleting from semantic search index")
+      (log/error e "Error deleting from semantic search engine")
       {})))
 
 (defmethod search.engine/init! :search.engine/semantic
@@ -99,7 +101,7 @@
     (log/info "Initializing semantic search engine")
     (init! (search.ingestion/searchable-documents) opts)
     (catch Exception e
-      (log/error e "Failed to initialize semantic search engine")
+      (log/error e "Error initializing semantic search engine")
       (throw e))))
 
 (defmethod search.engine/reindex! :search.engine/semantic
@@ -107,9 +109,8 @@
   (try
     (log/info "Reindexing semantic search engine")
     (reindex! (search.ingestion/searchable-documents) opts)
-    (log/info "Semantic search engine reindexed successfully")
     (catch Exception e
-      (log/error e "Failed to reindex semantic search engine")
+      (log/error e "Error reindexing semantic search engine")
       (throw e))))
 
 (comment
@@ -121,4 +122,4 @@
   (try
     (reset-tracking!)
     (catch Exception e
-      (log/debug e "Error resetting semantic search tracking"))))
+      (log/debug e "Error resetting tracking for semantic search engine"))))
