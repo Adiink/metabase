@@ -556,6 +556,7 @@ export const PLUGIN_EMBEDDING_IFRAME_SDK = {
 };
 
 export const PLUGIN_EMBEDDING_IFRAME_SDK_SETUP = {
+  isFeatureEnabled: () => false,
   shouldShowEmbedInNewItemMenu: () => false,
   SdkIframeEmbedSetup: (): ReactNode => null,
 };
