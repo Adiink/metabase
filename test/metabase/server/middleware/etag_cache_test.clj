@@ -6,19 +6,19 @@
 
 (set! *warn-on-reflection* true)
 
-(deftest matches-metabase-version?-test
-  (let [v           config/mb-version-string
-        quoted      (str "\"" v "\"")
+(deftest matches-metabase-version-hash?-test
+  (let [hash           config/mb-version-hash
+        quoted      (str "\"" hash "\"")
         weak-quoted (str "W/" quoted)
         wrong       "\"not-the-version\""]
     (testing "returns true for exact quoted ETag"
-      (is (true? (mw.etag-cache/matches-metabase-version? quoted))))
+      (is (true? (mw.etag-cache/matches-metabase-version-hash? quoted))))
     (testing "returns true for weak ETag"
-      (is (true? (mw.etag-cache/matches-metabase-version? weak-quoted))))
+      (is (true? (mw.etag-cache/matches-metabase-version-hash? weak-quoted))))
     (testing "returns false for non-matching value"
-      (is (false? (mw.etag-cache/matches-metabase-version? wrong))))
+      (is (false? (mw.etag-cache/matches-metabase-version-hash? wrong))))
     (testing "returns nil for nil input"
-      (is (nil? (mw.etag-cache/matches-metabase-version? nil))))))
+      (is (nil? (mw.etag-cache/matches-metabase-version-hash? nil))))))
 
 (deftest not-modified-response-test
   (let [resp mw.etag-cache/not-modified-response
@@ -28,7 +28,7 @@
     (testing "body is empty string"
       (is (= "" (:body resp))))
     (testing "contains exactly the configured cache headers"
-      (is (= mw.etag-cache/etag-headers-for-metabase-version hdrs)))))
+      (is (= mw.etag-cache/etag-headers-for-metabase-version-hash hdrs)))))
 
 (deftest js-response-with-etag-test
   (let [dummy-body  "console.log('hello');"
@@ -45,6 +45,6 @@
       (is (= "application/javascript; charset=UTF-8"
              (get hdrs "Content-Type"))))
     (testing "ETag and Cache-Control headers are merged"
-      (let [expected mw.etag-cache/etag-headers-for-metabase-version]
+      (let [expected mw.etag-cache/etag-headers-for-metabase-version-hash]
         (doseq [[k v] expected]
           (is (= v (get hdrs k))))))))

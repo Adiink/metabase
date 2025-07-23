@@ -66,7 +66,7 @@
   (GET "/embedding-sdk.js"
     {{:strs [if-none-match]} :headers}
     (if (and (not config/is-dev?)
-             (mw.etag-cache/matches-metabase-version? if-none-match))
+             (mw.etag-cache/matches-metabase-version-hash? if-none-match))
       ;; send the pre-built 304 response
       mw.etag-cache/not-modified-response
 
