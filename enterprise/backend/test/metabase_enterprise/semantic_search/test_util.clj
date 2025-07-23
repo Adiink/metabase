@@ -1,11 +1,14 @@
 (ns metabase-enterprise.semantic-search.test-util
   (:require
+   [metabase-enterprise.semantic-search.core]
    [metabase-enterprise.semantic-search.db :as semantic.db]
    [metabase-enterprise.semantic-search.embedding :as semantic.embedding]
    [metabase-enterprise.semantic-search.index :as semantic.index]
+   [metabase-enterprise.semantic-search.index-metadata :as semantic.index-metadata]
    [metabase.search.core :as search.core]
    [metabase.search.ingestion :as search.ingestion]
    [metabase.test :as mt]
+   [metabase.util :as u]
    [metabase.util.log :as log]
    [next.jdbc :as jdbc]
    [next.jdbc.protocols :as jdbc.protocols])
@@ -73,11 +76,30 @@
 
 (def mock-embedding-model
   {:provider          "mock"
-   :model-name        "mock-model"
+   :model-name        "model"
    :vector-dimensions 4})
 
+(def mock-index-metadata
+  "An index metadata to qualify and isolate mock indexes"
+  {:version               "0"
+   :metadata-table-name   "mock_index_metadata"
+   :control-table-name    "mock_index_control"
+   :index-table-qualifier "mock_%s"})
+
+(defn unique-mock-index-metadata
+  []
+  (let [nano-id (u/generate-nano-id)
+        fmt     (str "mock_%s_" nano-id "_")]
+    {:version               "0"
+     :metadata-table-name   (format fmt "index_metadata")
+     :control-table-name    (format fmt "index_control")
+     :index-table-qualifier fmt}))
+
 (def mock-index
-  (semantic.index/default-index mock-embedding-model))
+  "A mock index for testing low level indexing functions.
+  Coincides with what the index-metadata system would create for the mock-embedding-model."
+  (-> (semantic.index/default-index mock-embedding-model)
+      (semantic.index-metadata/qualify-index mock-index-metadata)))
 
 (defmethod semantic.embedding/get-embedding        "mock" [_ text] (get-mock-embedding text))
 (defmethod semantic.embedding/get-embeddings-batch "mock" [_ texts] (get-mock-embeddings-batch texts))
@@ -115,7 +137,7 @@
   [results]
   (filter #(contains? mock-embeddings (:name %)) results))
 
-(defn- closeable [o close-fn]
+(defn closeable [o close-fn]
   (reify
     IDeref
     (deref [_] o)
@@ -124,7 +146,7 @@
 
 (defn open-temp-index! []
   (closeable
-   (do (semantic.index/create-index-table! db mock-index {:force-reset? true})
+   (do (semantic.index/create-index-table-if-not-exists! db mock-index {:force-reset? true})
        mock-index)
    (fn cleanup-temp-index-table! [{:keys [table-name]}]
      (try
@@ -191,6 +213,7 @@
        (binding [semantic.embedding/*active-model* mock-embedding-model
                  search.ingestion/*force-sync* true]
          (search.core/reindex! :search.engine/semantic {:force-reset true}))
+           (search.core/reindex! :search.engine/semantic {:force-reset true})))
        ~@body)))
 
 (defn table-exists-in-db?
