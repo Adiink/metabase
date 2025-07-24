@@ -12,38 +12,42 @@ export type InteractiveQuestionProps = Omit<
   SdkQuestionProps,
   "getClickActionMode" | "navigateToNewCard" | "backToDashboard"
 >;
+
+export type InteractiveQuestionComponents = {
+  BackButton: typeof SdkQuestion.BackButton;
+  Filter: typeof SdkQuestion.Filter;
+  FilterDropdown: typeof SdkQuestion.FilterDropdown;
+  ResetButton: typeof SdkQuestion.ResetButton;
+  Title: typeof SdkQuestion.Title;
+  Summarize: typeof SdkQuestion.Summarize;
+  SummarizeDropdown: typeof SdkQuestion.SummarizeDropdown;
+  /** @deprecated Use `InteractiveQuestion.Editor` instead */
+  Notebook: typeof SdkQuestion.Editor;
+  Editor: typeof SdkQuestion.Editor;
+  /** @deprecated Use `InteractiveQuestion.EditorButton` instead */
+  NotebookButton: typeof SdkQuestion.EditorButton;
+  EditorButton: typeof SdkQuestion.EditorButton;
+  QuestionVisualization: typeof SdkQuestion.QuestionVisualization;
+  VisualizationButton: typeof SdkQuestion.VisualizationButton;
+  SaveQuestionForm: typeof SdkQuestion.SaveQuestionForm;
+  SaveButton: typeof SdkQuestion.SaveButton;
+  ChartTypeSelector: typeof SdkQuestion.ChartTypeSelector;
+  ChartTypeDropdown: typeof SdkQuestion.ChartTypeDropdown;
+  QuestionSettings: typeof SdkQuestion.QuestionSettings;
+  QuestionSettingsDropdown: typeof SdkQuestion.QuestionSettingsDropdown;
+  Breakout: typeof SdkQuestion.Breakout;
+  BreakoutDropdown: typeof SdkQuestion.BreakoutDropdown;
+  DownloadWidget: typeof SdkQuestion.DownloadWidget;
+  DownloadWidgetDropdown: typeof SdkQuestion.DownloadWidgetDropdown;
+};
+
 export const _InteractiveQuestion = (props: InteractiveQuestionProps) => (
   <SdkQuestion {...props} />
 );
 
 export const InteractiveQuestion =
-  _InteractiveQuestion as typeof _InteractiveQuestion & {
-    BackButton: typeof SdkQuestion.BackButton;
-    Filter: typeof SdkQuestion.Filter;
-    FilterDropdown: typeof SdkQuestion.FilterDropdown;
-    ResetButton: typeof SdkQuestion.ResetButton;
-    Title: typeof SdkQuestion.Title;
-    Summarize: typeof SdkQuestion.Summarize;
-    SummarizeDropdown: typeof SdkQuestion.SummarizeDropdown;
-    /** @deprecated Use `InteractiveQuestion.Editor` instead */
-    Notebook: typeof SdkQuestion.Editor;
-    Editor: typeof SdkQuestion.Editor;
-    /** @deprecated Use `InteractiveQuestion.EditorButton` instead */
-    NotebookButton: typeof SdkQuestion.EditorButton;
-    EditorButton: typeof SdkQuestion.EditorButton;
-    QuestionVisualization: typeof SdkQuestion.QuestionVisualization;
-    VisualizationButton: typeof SdkQuestion.VisualizationButton;
-    SaveQuestionForm: typeof SdkQuestion.SaveQuestionForm;
-    SaveButton: typeof SdkQuestion.SaveButton;
-    ChartTypeSelector: typeof SdkQuestion.ChartTypeSelector;
-    ChartTypeDropdown: typeof SdkQuestion.ChartTypeDropdown;
-    QuestionSettings: typeof SdkQuestion.QuestionSettings;
-    QuestionSettingsDropdown: typeof SdkQuestion.QuestionSettingsDropdown;
-    Breakout: typeof SdkQuestion.Breakout;
-    BreakoutDropdown: typeof SdkQuestion.BreakoutDropdown;
-    DownloadWidget: typeof SdkQuestion.DownloadWidget;
-    DownloadWidgetDropdown: typeof SdkQuestion.DownloadWidgetDropdown;
-  };
+  _InteractiveQuestion as typeof _InteractiveQuestion &
+    InteractiveQuestionComponents;
 
 InteractiveQuestion.BackButton = SdkQuestion.BackButton;
 InteractiveQuestion.Filter = SdkQuestion.Filter;

@@ -29,12 +29,24 @@ export type StaticQuestionProps = PropsWithChildren<
   >
 >;
 
-/**
- * A component that renders a static question.
- *
- * @function
- * @category StaticQuestion
- */
+export type StaticQuestionComponents = {
+  Filter: typeof SdkQuestion.Filter;
+  FilterDropdown: typeof SdkQuestion.FilterDropdown;
+  ResetButton: typeof SdkQuestion.ResetButton;
+  Title: typeof SdkQuestion.Title;
+  Summarize: typeof SdkQuestion.Summarize;
+  SummarizeDropdown: typeof SdkQuestion.SummarizeDropdown;
+  QuestionVisualization: typeof SdkQuestion.QuestionVisualization;
+  ChartTypeSelector: typeof SdkQuestion.ChartTypeSelector;
+  ChartTypeDropdown: typeof SdkQuestion.ChartTypeDropdown;
+  QuestionSettings: typeof SdkQuestion.QuestionSettings;
+  QuestionSettingsDropdown: typeof SdkQuestion.QuestionSettingsDropdown;
+  Breakout: typeof SdkQuestion.Breakout;
+  BreakoutDropdown: typeof SdkQuestion.BreakoutDropdown;
+  DownloadWidget: typeof SdkQuestion.DownloadWidget;
+  DownloadWidgetDropdown: typeof SdkQuestion.DownloadWidgetDropdown;
+};
+
 const _StaticQuestion = ({
   questionId: initialQuestionId,
   withChartTypeSelector,
@@ -93,23 +105,8 @@ const _StaticQuestion = ({
   );
 };
 
-export const StaticQuestion = _StaticQuestion as typeof _StaticQuestion & {
-  Filter: typeof SdkQuestion.Filter;
-  FilterDropdown: typeof SdkQuestion.FilterDropdown;
-  ResetButton: typeof SdkQuestion.ResetButton;
-  Title: typeof SdkQuestion.Title;
-  Summarize: typeof SdkQuestion.Summarize;
-  SummarizeDropdown: typeof SdkQuestion.SummarizeDropdown;
-  QuestionVisualization: typeof SdkQuestion.QuestionVisualization;
-  ChartTypeSelector: typeof SdkQuestion.ChartTypeSelector;
-  ChartTypeDropdown: typeof SdkQuestion.ChartTypeDropdown;
-  QuestionSettings: typeof SdkQuestion.QuestionSettings;
-  QuestionSettingsDropdown: typeof SdkQuestion.QuestionSettingsDropdown;
-  Breakout: typeof SdkQuestion.Breakout;
-  BreakoutDropdown: typeof SdkQuestion.BreakoutDropdown;
-  DownloadWidget: typeof SdkQuestion.DownloadWidget;
-  DownloadWidgetDropdown: typeof SdkQuestion.DownloadWidgetDropdown;
-};
+export const StaticQuestion = _StaticQuestion as typeof _StaticQuestion &
+  StaticQuestionComponents;
 
 StaticQuestion.Filter = SdkQuestion.Filter;
 StaticQuestion.FilterDropdown = SdkQuestion.FilterDropdown;
