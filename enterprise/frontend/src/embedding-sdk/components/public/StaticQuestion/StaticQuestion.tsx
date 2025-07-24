@@ -29,6 +29,9 @@ export type StaticQuestionProps = PropsWithChildren<
   >
 >;
 
+/**
+ * @interface
+ */
 export type StaticQuestionComponents = {
   Filter: typeof SdkQuestion.Filter;
   FilterDropdown: typeof SdkQuestion.FilterDropdown;
