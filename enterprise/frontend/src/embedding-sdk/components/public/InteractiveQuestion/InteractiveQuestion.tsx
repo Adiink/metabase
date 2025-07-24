@@ -45,31 +45,33 @@ export const _InteractiveQuestion = (props: InteractiveQuestionProps) => (
   <SdkQuestion {...props} />
 );
 
-export const InteractiveQuestion =
-  _InteractiveQuestion as typeof _InteractiveQuestion &
-    InteractiveQuestionComponents;
+const subComponents: InteractiveQuestionComponents = {
+  BackButton: SdkQuestion.BackButton,
+  Filter: SdkQuestion.Filter,
+  FilterDropdown: SdkQuestion.FilterDropdown,
+  ResetButton: SdkQuestion.ResetButton,
+  Title: SdkQuestion.Title,
+  Summarize: SdkQuestion.Summarize,
+  SummarizeDropdown: SdkQuestion.SummarizeDropdown,
+  Notebook: SdkQuestion.Editor,
+  Editor: SdkQuestion.Editor,
+  NotebookButton: SdkQuestion.EditorButton,
+  EditorButton: SdkQuestion.EditorButton,
+  QuestionVisualization: SdkQuestion.QuestionVisualization,
+  SaveQuestionForm: SdkQuestion.SaveQuestionForm,
+  SaveButton: SdkQuestion.SaveButton,
+  ChartTypeSelector: SdkQuestion.ChartTypeSelector,
+  QuestionSettings: SdkQuestion.QuestionSettings,
+  QuestionSettingsDropdown: SdkQuestion.QuestionSettingsDropdown,
+  BreakoutDropdown: SdkQuestion.BreakoutDropdown,
+  Breakout: SdkQuestion.Breakout,
+  ChartTypeDropdown: SdkQuestion.ChartTypeDropdown,
+  DownloadWidget: SdkQuestion.DownloadWidget,
+  DownloadWidgetDropdown: SdkQuestion.DownloadWidgetDropdown,
+  VisualizationButton: SdkQuestion.VisualizationButton,
+};
 
-InteractiveQuestion.BackButton = SdkQuestion.BackButton;
-InteractiveQuestion.Filter = SdkQuestion.Filter;
-InteractiveQuestion.FilterDropdown = SdkQuestion.FilterDropdown;
-InteractiveQuestion.ResetButton = SdkQuestion.ResetButton;
-InteractiveQuestion.Title = SdkQuestion.Title;
-InteractiveQuestion.Summarize = SdkQuestion.Summarize;
-InteractiveQuestion.SummarizeDropdown = SdkQuestion.SummarizeDropdown;
-InteractiveQuestion.Notebook = SdkQuestion.Editor;
-InteractiveQuestion.Editor = SdkQuestion.Editor;
-InteractiveQuestion.NotebookButton = SdkQuestion.EditorButton;
-InteractiveQuestion.EditorButton = SdkQuestion.EditorButton;
-InteractiveQuestion.QuestionVisualization = SdkQuestion.QuestionVisualization;
-InteractiveQuestion.SaveQuestionForm = SdkQuestion.SaveQuestionForm;
-InteractiveQuestion.SaveButton = SdkQuestion.SaveButton;
-InteractiveQuestion.ChartTypeSelector = SdkQuestion.ChartTypeSelector;
-InteractiveQuestion.QuestionSettings = SdkQuestion.QuestionSettings;
-InteractiveQuestion.QuestionSettingsDropdown =
-  SdkQuestion.QuestionSettingsDropdown;
-InteractiveQuestion.BreakoutDropdown = SdkQuestion.BreakoutDropdown;
-InteractiveQuestion.Breakout = SdkQuestion.Breakout;
-InteractiveQuestion.ChartTypeDropdown = SdkQuestion.ChartTypeDropdown;
-InteractiveQuestion.DownloadWidget = SdkQuestion.DownloadWidget;
-InteractiveQuestion.DownloadWidgetDropdown = SdkQuestion.DownloadWidgetDropdown;
-InteractiveQuestion.VisualizationButton = SdkQuestion.VisualizationButton;
+export const InteractiveQuestion = Object.assign(
+  _InteractiveQuestion,
+  subComponents,
+);

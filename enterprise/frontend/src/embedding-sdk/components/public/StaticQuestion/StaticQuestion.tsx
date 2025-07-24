@@ -105,21 +105,22 @@ const _StaticQuestion = ({
   );
 };
 
-export const StaticQuestion = _StaticQuestion as typeof _StaticQuestion &
-  StaticQuestionComponents;
+const subComponents: StaticQuestionComponents = {
+  Filter: SdkQuestion.Filter,
+  FilterDropdown: SdkQuestion.FilterDropdown,
+  ResetButton: SdkQuestion.ResetButton,
+  Title: SdkQuestion.Title,
+  Summarize: SdkQuestion.Summarize,
+  SummarizeDropdown: SdkQuestion.SummarizeDropdown,
+  QuestionVisualization: SdkQuestion.QuestionVisualization,
+  ChartTypeSelector: SdkQuestion.ChartTypeSelector,
+  ChartTypeDropdown: SdkQuestion.ChartTypeDropdown,
+  QuestionSettings: SdkQuestion.QuestionSettings,
+  QuestionSettingsDropdown: SdkQuestion.QuestionSettingsDropdown,
+  Breakout: SdkQuestion.Breakout,
+  BreakoutDropdown: SdkQuestion.BreakoutDropdown,
+  DownloadWidget: SdkQuestion.DownloadWidget,
+  DownloadWidgetDropdown: SdkQuestion.DownloadWidgetDropdown,
+};
 
-StaticQuestion.Filter = SdkQuestion.Filter;
-StaticQuestion.FilterDropdown = SdkQuestion.FilterDropdown;
-StaticQuestion.ResetButton = SdkQuestion.ResetButton;
-StaticQuestion.Title = SdkQuestion.Title;
-StaticQuestion.Summarize = SdkQuestion.Summarize;
-StaticQuestion.SummarizeDropdown = SdkQuestion.SummarizeDropdown;
-StaticQuestion.QuestionVisualization = SdkQuestion.QuestionVisualization;
-StaticQuestion.ChartTypeSelector = SdkQuestion.ChartTypeSelector;
-StaticQuestion.QuestionSettings = SdkQuestion.QuestionSettings;
-StaticQuestion.QuestionSettingsDropdown = SdkQuestion.QuestionSettingsDropdown;
-StaticQuestion.BreakoutDropdown = SdkQuestion.BreakoutDropdown;
-StaticQuestion.Breakout = SdkQuestion.Breakout;
-StaticQuestion.ChartTypeDropdown = SdkQuestion.ChartTypeDropdown;
-StaticQuestion.DownloadWidget = SdkQuestion.DownloadWidget;
-StaticQuestion.DownloadWidgetDropdown = SdkQuestion.DownloadWidgetDropdown;
+export const StaticQuestion = Object.assign(_StaticQuestion, subComponents);
