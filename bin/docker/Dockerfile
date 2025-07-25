@@ -1,4 +1,8 @@
 FROM metabase/metabase:v0.49.13-alpine
+ARG MB_EDITION=oss
+ARG VERSION
+
+RUN INTERACTIVE=false CI=true MB_EDITION=$MB_EDITION bin/build.sh :version ${VERSION}
 
 ENV FC_LANG=en-US LC_CTYPE=en_US.UTF-8
 ENV JAVA_TOOL_OPTIONS=-Xmx256m
