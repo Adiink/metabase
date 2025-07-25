@@ -1,4 +1,3 @@
-FROM eclipse-temurin:21-jre-alpine
 FROM metabase/metabase:v0.49.13-alpine
 
 ENV FC_LANG=en-US LC_CTYPE=en_US.UTF-8
