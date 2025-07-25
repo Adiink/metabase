@@ -1,12 +1,5 @@
 FROM metabase/metabase:v0.49.13-alpine
 
-# Declare build arguments
-ARG MB_EDITION=oss
-ARG VERSION=1.0.0  # <-- Default version can be overridden during build
-
-# Run build script with required arguments
-RUN INTERACTIVE=false CI=true MB_EDITION=$MB_EDITION bin/build.sh :version $VERSION
-
 # Set environment variables
 ENV FC_LANG=en-US LC_CTYPE=en_US.UTF-8
 ENV JAVA_TOOL_OPTIONS=-Xmx256m
